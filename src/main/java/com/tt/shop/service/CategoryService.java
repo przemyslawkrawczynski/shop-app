@@ -1,0 +1,43 @@
+package com.tt.shop.service;
+
+import com.tt.shop.domain.Category;
+import com.tt.shop.exception.CategoryNotFoundException;
+import com.tt.shop.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class CategoryService {
+
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
+    public void addCategory(Category category) {
+        categoryRepository.save(category);
+    }
+
+    public void deleteCategory(Category category) {
+        categoryRepository.delete(category);
+    }
+
+    public long countAllCategory() {
+        return categoryRepository.count();
+    }
+
+    public Category getById(long id) throws CategoryNotFoundException {
+        Optional<Category> opt = categoryRepository.findById(id);
+        if (opt.isPresent()) {
+            return opt.get();
+        } else {
+            throw new CategoryNotFoundException("Nie znaleziono kategorii o podanym id: " + id);
+        }
+    }
+
+}
