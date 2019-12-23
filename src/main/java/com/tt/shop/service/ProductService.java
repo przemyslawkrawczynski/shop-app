@@ -40,14 +40,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product getProductById(long id) throws ProductNotFoundException {
+    public Product getProductById(Long id) throws ProductNotFoundException {
         Optional<Product> opt = productRepository.findById(id);
-//popraw
-        if (opt.isPresent()) {
-            return opt.get();
-        } else {
-            throw new ProductNotFoundException("Nie znaleziono produktu o podanym id: " + id);
-        }
+        return opt.orElseThrow(() -> new ProductNotFoundException("Nie znaleziono produktu o podanym id: " + id));
     }
 
     public List<Product> getAllProductsByCategoryId(long categoryId) {

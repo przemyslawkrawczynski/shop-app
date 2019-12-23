@@ -1,7 +1,10 @@
 package com.tt.shop.domain;
 
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -9,7 +12,7 @@ import java.util.Objects;
 public class Product {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
@@ -24,6 +27,12 @@ public class Product {
 
     @Column(name = "PRICE")
     private BigDecimal price;
+
+    @ManyToMany
+    @JoinTable(name = "product_in_items",
+            joinColumns = {@JoinColumn(name="product_id")},
+            inverseJoinColumns = {@JoinColumn(name="cartItem_id")} )
+    private List<CartItem> itemsList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "GROUP_ID")
@@ -103,5 +112,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<CartItem> getItemsList() {
+        return itemsList;
+    }
+
+    public void setItemsList(List<CartItem> itemsList) {
+        this.itemsList = itemsList;
     }
 }
