@@ -42,7 +42,7 @@ public class ProductService {
 
     public Product getProductById(long id) throws ProductNotFoundException {
         Optional<Product> opt = productRepository.findById(id);
-
+//popraw
         if (opt.isPresent()) {
             return opt.get();
         } else {
