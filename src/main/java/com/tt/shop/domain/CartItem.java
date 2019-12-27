@@ -25,6 +25,8 @@ public class CartItem {
     @Column
     private BigDecimal itemValue;
 
+    
+
     public CartItem() {}
 
     public CartItem(Cart cart, List<Product> products, int quantity, BigDecimal itemValue) {

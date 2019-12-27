@@ -33,11 +33,9 @@ public class CategoryService {
 
     public Category getById(long id) throws CategoryNotFoundException {
         Optional<Category> opt = categoryRepository.findById(id);
-        if (opt.isPresent()) {
-            return opt.get();
-        } else {
-            throw new CategoryNotFoundException("Nie znaleziono kategorii o podanym id: " + id);
-        }
+        return opt.orElseThrow(() ->
+            new CategoryNotFoundException("Nie znaleziono kategorii o podanym id: " + id)
+        );
     }
 
 }
