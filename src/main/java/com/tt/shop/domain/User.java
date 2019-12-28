@@ -1,15 +1,14 @@
 package com.tt.shop.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "USERS")
-public class User {
+public class User  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
     private String name;
@@ -21,13 +20,18 @@ public class User {
     private String pass;
 
     @OneToOne(fetch = FetchType.EAGER,
-              cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserOrder> orders = new ArrayList<>();
+
     @Column
     private boolean isActive;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String name, String lastName, String mail, String pass, boolean isActive) {
         this.name = name;

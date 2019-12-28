@@ -8,13 +8,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "product")
 public class Product {
 
     @Id
-    @Column(name = "product_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
@@ -28,17 +26,15 @@ public class Product {
     @Column(name = "PRICE")
     private BigDecimal price;
 
-    @ManyToMany
-    @JoinTable(name = "product_in_items",
-            joinColumns = {@JoinColumn(name="product_id")},
-            inverseJoinColumns = {@JoinColumn(name="cartItem_id")} )
+    @OneToMany(mappedBy = "product")
     private List<CartItem> itemsList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "GROUP_ID")
     private Category category;
 
-    public Product() {}
+    public Product() {
+    }
 
     public Product(String name, String description, int storageQuantity, BigDecimal price, Category category) {
         this.name = name;
@@ -106,19 +102,19 @@ public class Product {
         this.price = price;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public List<CartItem> getItemsList() {
         return itemsList;
     }
 
     public void setItemsList(List<CartItem> itemsList) {
         this.itemsList = itemsList;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

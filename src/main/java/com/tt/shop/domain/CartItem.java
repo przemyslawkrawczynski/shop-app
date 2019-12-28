@@ -2,22 +2,21 @@ package com.tt.shop.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class CartItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @ManyToMany(mappedBy = "itemsList")
-    private List<Product> products = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column
     private int quantity;
@@ -25,15 +24,27 @@ public class CartItem {
     @Column
     private BigDecimal itemValue;
 
-    
+    @Enumerated(EnumType.STRING)
+    private CartItemStatus cartItemStatus;
 
-    public CartItem() {}
+    public CartItem() {
+    }
 
-    public CartItem(Cart cart, List<Product> products, int quantity, BigDecimal itemValue) {
+    public CartItem(Cart cart, Product products, int quantity, BigDecimal itemValue, CartItemStatus cartItemStatus) {
         this.cart = cart;
-        this.products = products;
+        this.product = products;
         this.quantity = quantity;
         this.itemValue = itemValue;
+        this.cartItemStatus = cartItemStatus;
+    }
+
+    public CartItem(Cart cart, Product product, int quantity, BigDecimal itemValue) {
+        super();
+        this.cart = cart;
+        this.product = product;
+        this.quantity = quantity;
+        this.itemValue = itemValue;
+        this.cartItemStatus = CartItemStatus.IN_CART;
     }
 
     public Long getId() {
@@ -52,12 +63,12 @@ public class CartItem {
         this.cart = cart;
     }
 
-    public List<Product> getProduct() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProduct(List<Product> product) {
-        this.products = product;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -74,5 +85,14 @@ public class CartItem {
 
     public void setItemValue(BigDecimal itemValue) {
         this.itemValue = itemValue;
+    }
+
+
+    public CartItemStatus getCartItemStatus() {
+        return cartItemStatus;
+    }
+
+    public void setCartItemStatus(CartItemStatus cartItemStatus) {
+        this.cartItemStatus = cartItemStatus;
     }
 }

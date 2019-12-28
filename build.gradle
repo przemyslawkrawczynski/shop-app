@@ -18,5 +18,5 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompile group: 'com.h2database', name: 'h2', version: '1.4.199'
+    implementation 'com.h2database:h2'
 }

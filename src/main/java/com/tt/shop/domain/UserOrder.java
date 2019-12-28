@@ -1,30 +1,29 @@
 package com.tt.shop.domain;
 
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Cart {
+public class UserOrder  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToMany(
-            mappedBy = "cart",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
-    private List<CartItem> itemsInCart = new ArrayList<>();
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    public Cart() {
-    }
+    public UserOrder() {}
 
-    public Cart(User user) {
+    public UserOrder(User user, List<OrderItem> orderItems) {
         this.user = user;
+        this.orderItems = orderItems;
     }
 
     public Long getId() {
@@ -43,11 +42,11 @@ public class Cart {
         this.user = user;
     }
 
-    public List<CartItem> getItemsInCart() {
-        return itemsInCart;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setItemsInCart(List<CartItem> itemsInCart) {
-        this.itemsInCart = itemsInCart;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }
