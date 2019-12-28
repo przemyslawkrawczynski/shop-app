@@ -1,5 +1,7 @@
 package com.tt.shop.domain;
 
+import com.tt.shop.domain.enumvalues.CartItemStatus;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 

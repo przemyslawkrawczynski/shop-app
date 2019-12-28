@@ -1,5 +1,7 @@
 package com.tt.shop.domain;
 
+import com.tt.shop.domain.enumvalues.Role;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +24,26 @@ public class User  {
     @OneToOne(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
-    private Cart cart;
+    private Cart cart = new Cart(this);
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserOrder> orders = new ArrayList<>();
 
     @Column
     private boolean isActive;
 
-    public User() {
-    }
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    public User(String name, String lastName, String mail, String pass, boolean isActive) {
+    public User() {};
+
+    public User(String name, String lastName, String mail, String pass, boolean isActive, Role role) {
         this.name = name;
         this.lastName = lastName;
         this.mail = mail;
         this.pass = pass;
-        this.cart = new Cart(this);
         this.isActive = isActive;
+        this.role = role;
     }
 
     public Long getId() {
@@ -90,11 +94,27 @@ public class User  {
         this.cart = cart;
     }
 
+    public List<UserOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<UserOrder> orders) {
+        this.orders = orders;
+    }
+
     public boolean isActive() {
         return isActive;
     }
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

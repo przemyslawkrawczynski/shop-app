@@ -3,6 +3,7 @@ package com.tt.shop;
 import com.tt.shop.domain.Category;
 import com.tt.shop.domain.Product;
 import com.tt.shop.domain.User;
+import com.tt.shop.domain.enumvalues.Role;
 import com.tt.shop.repository.CartItemRepository;
 import com.tt.shop.repository.CartRepository;
 import com.tt.shop.repository.UserRepository;
@@ -45,8 +46,8 @@ public class OnStartClassMain implements CommandLineRunner {
             Product p2 = new Product("Handsaw", "Handsow using to cut wood", 15, new BigDecimal(15.99), category);
             Product p3 = new Product("Drill", "Home usage drill", 15, new BigDecimal(159.99), category);
 
-            User user = new User("Johny", "Bravo", "jb@hot.com", "secretPass", true);
-            User user2 = new User("Mickey", "Mouse", "mm@riders.com", "secretPass", true);
+            User user = new User("Johny", "Bravo", "jb@hot.com", "secretPass", true, Role.ROLE_USER);
+            User user2 = new User("Mickey", "Mouse", "mm@riders.com", "secretPass", true, Role.ROLE_ADMIN);
 
             userService.addUser(user);
             userService.addUser(user2);
@@ -61,7 +62,7 @@ public class OnStartClassMain implements CommandLineRunner {
         System.out.println("Liczba produktów: " + productService.countAllProducts());
         System.out.println("Liczba kategorii: " + categoryService.countAllCategory());
         System.out.println("Liczba użytkowników: " + userService.countAllUsers());
-        userService.getUserList()
+        userService.getAllUserList()
                 .stream()
                 .forEach(s -> System.out.println(s.getName() + " " + " | Pozycje w koszyku [" + s.getCart().getItemsInCart().size() +"]" ));
     }
