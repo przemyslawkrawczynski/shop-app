@@ -10,10 +10,7 @@ import com.tt.shop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,9 +28,17 @@ public class OrderController {
     }
 
     @GetMapping("/{user_id}")
-    public ResponseEntity<UserOrderDto> getAllOrders(@PathVariable("user_id") Long user_id) throws UserNotFoundException, CartNotFoundException {
+    public ResponseEntity<List<UserOrderDto>> getAllOrdersByUserId(@PathVariable("user_id") Long user_id) throws UserNotFoundException {
+        List<UserOrderDto> userOrderDtos = orderMapper.mapToUserOrderDtoList(orderService.getAllUserOrdersByUserId(user_id));
+        return ResponseEntity.ok(userOrderDtos);
+    }
+
+    @PostMapping("/{user_id}")
+    public ResponseEntity<UserOrderDto> createOrder(@PathVariable("user_id") Long user_id) throws UserNotFoundException, CartNotFoundException {
         UserOrderDto orderDto = orderMapper.mapToUserOrderDto(orderService.createNewOrderForUser(user_id));
         return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
     }
+
+
 
 }

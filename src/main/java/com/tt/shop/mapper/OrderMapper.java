@@ -37,4 +37,10 @@ public class OrderMapper {
                 orderItem.getItemValue());
     }
 
+    public List<UserOrderDto> mapToUserOrderDtoList(List<UserOrder> orders) {
+        return orders.stream()
+                .map(this::mapToUserOrderDto)
+                .collect(Collectors.toList());
+    }
+
 }

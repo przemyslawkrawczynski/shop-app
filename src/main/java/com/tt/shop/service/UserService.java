@@ -22,6 +22,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public boolean isExistById(Long id) {
+        return userRepository.existsById(id);
+    }
+
     public User getUserById(Long id) throws UserNotFoundException {
         Optional<User> opt = userRepository.findById(id);
         return opt.orElseThrow(() -> new UserNotFoundException("Nie odnaleziono użytkownika o ID: " + id));

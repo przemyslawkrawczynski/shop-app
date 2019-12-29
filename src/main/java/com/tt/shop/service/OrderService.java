@@ -10,18 +10,20 @@ import org.apache.catalina.servlets.DefaultServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
 
     private final UserOrderRepository userOrderRepository;
-    private final OrderItemRepository orderItemRepositor;
+    private final UserService userService;
     private final GenerateOrderService generateOrderService;
 
     @Autowired
-    public OrderService(OrderItemRepository orderItemRepositor, UserOrderRepository userOrderRepository, GenerateOrderService generateOrderService) {
-        this.orderItemRepositor = orderItemRepositor;
+    public OrderService(UserService userService,UserOrderRepository userOrderRepository, GenerateOrderService generateOrderService) {
+        this.userService = userService;
         this.userOrderRepository = userOrderRepository;
         this.generateOrderService = generateOrderService;
     }
@@ -36,6 +38,14 @@ public class OrderService {
         userOrderRepository.save(userOrder);
     }
 
+    public List<UserOrder> getAllUserOrdersByUserId(Long id) throws UserNotFoundException {
+        if (userService.isExistById(id)) {
+            Optional<List<UserOrder>> opt = userOrderRepository.findAllByUserId(id);
+            return opt.orElse(new ArrayList<>());
+        } else {
+            throw new UserNotFoundException("Nie znaleziono użytkownika o podanym id: " + id);
+        }
+    }
     public List<UserOrder> getAllUserOrders() {
         return userOrderRepository.findAll();
     }
