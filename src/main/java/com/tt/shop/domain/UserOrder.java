@@ -21,7 +21,12 @@ public class UserOrder  {
 
     public UserOrder() {}
 
-    public UserOrder(User user, List<OrderItem> orderItems) {
+    public UserOrder(User user) {
+        this.user = user;
+    }
+
+    public UserOrder(Long id, User user, List<OrderItem> orderItems) {
+        this.id = id;
         this.user = user;
         this.orderItems = orderItems;
     }

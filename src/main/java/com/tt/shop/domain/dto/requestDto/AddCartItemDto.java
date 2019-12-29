@@ -1,4 +1,4 @@
-package com.tt.shop.domain.dto;
+package com.tt.shop.domain.dto.requestDto;
 
 public class AddCartItemDto {
 

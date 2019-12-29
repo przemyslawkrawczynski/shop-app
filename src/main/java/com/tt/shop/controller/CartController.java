@@ -1,8 +1,8 @@
 package com.tt.shop.controller;
 
-import com.tt.shop.domain.Cart;
-import com.tt.shop.domain.dto.AddCartItemDto;
-import com.tt.shop.domain.dto.CartDto;
+import com.tt.shop.domain.dto.requestDto.AddCartItemDto;
+import com.tt.shop.domain.dto.responseDto.CartDto;
+import com.tt.shop.exception.CartItemNotFoundException;
 import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.ProductNotFoundException;
 import com.tt.shop.mapper.CartItemMapper;
@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/shop/cart")
+@RequestMapping("/api/shop/carts")
 public class CartController {
 
     private final CartService cartService;
@@ -38,14 +38,14 @@ public class CartController {
     }
 
     @GetMapping("/{cart_id}")
-    public ResponseEntity<CartDto> getCartById(@PathVariable Long cart_id) throws CartNotFoundException {
-        CartDto cartDto = cartMapper.mapToCartDto(cartService.getCartById(cart_id));
+    public ResponseEntity<CartDto> getCartWithActiveItemsById(@PathVariable Long cart_id) throws CartNotFoundException {
+        CartDto cartDto = cartMapper.mapToCartDto(cartService.getCartWithActiveItems(cart_id));
         return ResponseEntity.ok().body(cartDto);
     }
 
     @DeleteMapping("/{item_id}")
-    public ResponseEntity deleteItemFromCart(@PathVariable Long item_id) throws CartNotFoundException {
-        cartItemService.deleteCartItemById(item_id);
+    public ResponseEntity deleteItemFromCart(@PathVariable Long item_id) throws CartItemNotFoundException {
+        cartItemService.removeCartItemById(item_id);
         return ResponseEntity.status(204).build();
     }
 

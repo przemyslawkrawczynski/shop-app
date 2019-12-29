@@ -1,7 +1,7 @@
 package com.tt.shop.mapper;
 
 import com.tt.shop.domain.Product;
-import com.tt.shop.domain.dto.ProductDto;
+import com.tt.shop.domain.dto.responseDto.ProductDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

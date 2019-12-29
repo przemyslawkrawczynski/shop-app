@@ -1,8 +1,8 @@
 package com.tt.shop.mapper;
 
 import com.tt.shop.domain.Cart;
-import com.tt.shop.domain.dto.CartDto;
-import com.tt.shop.domain.dto.CartItemDto;
+import com.tt.shop.domain.dto.responseDto.CartDto;
+import com.tt.shop.domain.dto.responseDto.CartItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

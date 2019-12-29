@@ -1,6 +1,4 @@
-package com.tt.shop.domain.dto;
-
-import com.tt.shop.domain.Product;
+package com.tt.shop.domain.dto.responseDto;
 
 import java.math.BigDecimal;
 

@@ -1,6 +1,6 @@
 package com.tt.shop.controller;
 
-import com.tt.shop.domain.dto.ProductDto;
+import com.tt.shop.domain.dto.responseDto.ProductDto;
 import com.tt.shop.exception.ProductNotFoundException;
 import com.tt.shop.mapper.ProductMapper;
 import com.tt.shop.service.ProductService;
