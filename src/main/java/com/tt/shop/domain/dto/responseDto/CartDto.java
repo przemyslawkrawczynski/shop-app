@@ -39,4 +39,13 @@ public class CartDto {
     public void setCartItemDtos(List<CartItemDto> cartItemDtos) {
         this.cartItemDtos = cartItemDtos;
     }
+
+    @Override
+    public String toString() {
+        return "CartDto{" +
+                "cart_id=" + cart_id +
+                ", user_id=" + user_id +
+                ", cartItemDtos=" + cartItemDtos +
+                '}';
+    }
 }

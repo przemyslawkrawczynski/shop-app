@@ -3,6 +3,7 @@ package com.tt.shop.controller;
 import com.tt.shop.domain.UserOrder;
 import com.tt.shop.domain.dto.responseDto.UserOrderDto;
 import com.tt.shop.exception.CartItemNotFoundException;
+import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
 import com.tt.shop.mapper.OrderMapper;
 import com.tt.shop.service.OrderService;
@@ -30,7 +31,7 @@ public class OrderController {
     }
 
     @GetMapping("/{user_id}")
-    public ResponseEntity<UserOrderDto> getAllOrders(@PathVariable("user_id") Long user_id) throws UserNotFoundException, CartItemNotFoundException {
+    public ResponseEntity<UserOrderDto> getAllOrders(@PathVariable("user_id") Long user_id) throws UserNotFoundException, CartNotFoundException {
         UserOrderDto orderDto = orderMapper.mapToUserOrderDto(orderService.createNewOrderForUser(user_id));
         return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
     }

@@ -41,7 +41,6 @@ public class CartItem {
     }
 
     public CartItem(Cart cart, Product product, int quantity, BigDecimal itemValue) {
-        super();
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;

@@ -5,6 +5,7 @@ import com.tt.shop.domain.OrderItem;
 import com.tt.shop.domain.User;
 import com.tt.shop.domain.UserOrder;
 import com.tt.shop.exception.CartItemNotFoundException;
+import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +15,22 @@ import java.util.stream.Collectors;
 @Service
 public class GenerateOrderService {
 
-    private UserService userService;
-    private CartItemService cartItemService;
+    private final UserService userService;
+    private final CartService cartService;
+    private final CartItemService cartItemService;
 
-    public GenerateOrderService(UserService userService) {
+    public GenerateOrderService(UserService userService, CartService cartService, CartItemService cartItemService) {
         this.userService = userService;
+        this.cartService = cartService;
+        this.cartItemService = cartItemService;
     }
 
-    public UserOrder realizeOrder(Long user_id) throws UserNotFoundException, CartItemNotFoundException {
+    public UserOrder realizeOrder(Long user_id) throws UserNotFoundException, CartNotFoundException {
 
         User user = userService.getUserById(user_id);
-        List<CartItem> activeCartItems = cartItemService.getAllActiveCartItemsInCart(user.getCart().getId());
+        List<CartItem> activeCartItems = cartService
+                .getCartWithActiveItems(user.getCart().getId())
+                .getItemsInCart();
 
         return generateOrder(user, activeCartItems);
 

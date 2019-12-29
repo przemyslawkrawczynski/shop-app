@@ -49,4 +49,14 @@ public class CartItemDto {
     public void setItemValue(BigDecimal itemValue) {
         this.itemValue = itemValue;
     }
+
+    @Override
+    public String toString() {
+        return "CartItemDto{" +
+                "id=" + id +
+                ", productDto=" + productDto +
+                ", quantity=" + quantity +
+                ", itemValue=" + itemValue +
+                '}';
+    }
 }

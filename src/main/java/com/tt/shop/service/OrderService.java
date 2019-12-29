@@ -2,6 +2,7 @@ package com.tt.shop.service;
 
 import com.tt.shop.domain.UserOrder;
 import com.tt.shop.exception.CartItemNotFoundException;
+import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
 import com.tt.shop.repository.OrderItemRepository;
 import com.tt.shop.repository.UserOrderRepository;
@@ -25,7 +26,7 @@ public class OrderService {
         this.generateOrderService = generateOrderService;
     }
 
-    public UserOrder createNewOrderForUser(Long user_id) throws UserNotFoundException, CartItemNotFoundException {
+    public UserOrder createNewOrderForUser(Long user_id) throws UserNotFoundException, CartNotFoundException {
         UserOrder newOrder = generateOrderService.realizeOrder(user_id);
         addOrder(newOrder);
         return newOrder;
