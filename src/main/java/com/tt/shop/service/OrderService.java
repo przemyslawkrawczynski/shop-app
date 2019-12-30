@@ -39,6 +39,8 @@ public class OrderService {
     }
 
     public List<UserOrder> getAllUserOrdersByUserId(Long id) throws UserNotFoundException {
+       //bez optionalas or else
+
         if (userService.isExistById(id)) {
             Optional<List<UserOrder>> opt = userOrderRepository.findAllByUserId(id);
             return opt.orElse(new ArrayList<>());

@@ -1,6 +1,8 @@
 package com.tt.shop.mapper;
 
+import com.tt.shop.domain.Category;
 import com.tt.shop.domain.Product;
+import com.tt.shop.domain.dto.responseDto.CategoryDto;
 import com.tt.shop.domain.dto.responseDto.ProductDto;
 import org.springframework.stereotype.Component;
 
@@ -26,5 +28,15 @@ public class ProductMapper {
         return products.stream()
                 .map(this::mapToProductDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<CategoryDto> mapToCategoryDtoList(List<Category> categories) {
+        return categories.stream()
+                .map(this::mapToCategory)
+                .collect(Collectors.toList());
+    }
+
+    public CategoryDto mapToCategory(Category category) {
+        return new CategoryDto(category.getId(), category.getName());
     }
 }

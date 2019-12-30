@@ -46,7 +46,7 @@ public class CartController {
     @DeleteMapping("/{item_id}")
     public ResponseEntity deleteItemFromCart(@PathVariable Long item_id) throws CartItemNotFoundException {
         cartItemService.removeCartItemById(item_id);
-        return ResponseEntity.status(204).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

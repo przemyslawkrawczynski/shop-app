@@ -6,7 +6,6 @@ import com.tt.shop.domain.User;
 import com.tt.shop.domain.enumvalues.Role;
 import com.tt.shop.repository.CartItemRepository;
 import com.tt.shop.repository.CartRepository;
-import com.tt.shop.repository.UserRepository;
 import com.tt.shop.service.CategoryService;
 import com.tt.shop.service.ProductService;
 import com.tt.shop.service.UserService;

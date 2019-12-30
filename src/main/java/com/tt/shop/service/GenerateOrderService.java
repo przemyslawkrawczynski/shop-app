@@ -4,10 +4,10 @@ import com.tt.shop.domain.CartItem;
 import com.tt.shop.domain.OrderItem;
 import com.tt.shop.domain.User;
 import com.tt.shop.domain.UserOrder;
-import com.tt.shop.exception.CartItemNotFoundException;
 import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +45,7 @@ public class GenerateOrderService {
         return order;
     }
 
-
+    @Transactional
     public List<OrderItem> generateOrderItemList(UserOrder userOrder, List<CartItem> cartItems) {
 
         List<OrderItem> orderItems = cartItems.stream()

@@ -1,19 +1,19 @@
 package com.tt.shop.controller;
 
+import com.tt.shop.domain.Category;
+import com.tt.shop.domain.dto.responseDto.CategoryDto;
 import com.tt.shop.domain.dto.responseDto.ProductDto;
 import com.tt.shop.exception.ProductNotFoundException;
 import com.tt.shop.mapper.ProductMapper;
 import com.tt.shop.service.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/shop/products")
+@CrossOrigin("*")
 public class ProductController {
 
     private final ProductService productService;
@@ -32,9 +32,16 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getProductById(@PathVariable Long id) throws ProductNotFoundException {
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) throws ProductNotFoundException {
         return ResponseEntity
                 .ok()
                 .body(productMapper.mapToProductDto(productService.getProductById(id)));
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<CategoryDto>> getAllCategoriesList() {
+        return ResponseEntity
+                .ok()
+                .body(productService.getAllCategoryList());
     }
 }
