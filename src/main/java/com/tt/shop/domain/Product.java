@@ -11,7 +11,7 @@ import java.util.Objects;
             query = "FROM Product where CATEGORY_ID = :CATEGORY_ID")
 
 @Entity
-public class Product {
+public class Product extends CreatedDate{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

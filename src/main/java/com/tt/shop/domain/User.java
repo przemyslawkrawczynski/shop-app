@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User  {
+public class User extends CreatedDate{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

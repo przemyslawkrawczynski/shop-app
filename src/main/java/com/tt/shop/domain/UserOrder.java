@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class UserOrder  {
+public class UserOrder extends CreatedDate  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

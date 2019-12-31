@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-public class OrderItem {
+public class OrderItem extends CreatedDate{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
