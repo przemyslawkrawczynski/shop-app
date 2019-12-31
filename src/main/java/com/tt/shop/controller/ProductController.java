@@ -1,6 +1,7 @@
 package com.tt.shop.controller;
 
 import com.tt.shop.domain.Category;
+import com.tt.shop.domain.Product;
 import com.tt.shop.domain.dto.responseDto.CategoryDto;
 import com.tt.shop.domain.dto.responseDto.ProductDto;
 import com.tt.shop.exception.ProductNotFoundException;
@@ -17,25 +18,23 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-    private final ProductMapper productMapper;
 
-    public ProductController(ProductService productService, ProductMapper productMapper) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.productMapper = productMapper;
     }
 
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         return ResponseEntity
                 .ok()
-                .body(productMapper.mapToProductDtoList(productService.getAllProducts()));
+                .body(productService.getAllProductsDto());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) throws ProductNotFoundException {
+    public ResponseEntity<ProductDto> getProductDtoById(@PathVariable Long id) throws ProductNotFoundException {
         return ResponseEntity
                 .ok()
-                .body(productMapper.mapToProductDto(productService.getProductById(id)));
+                .body(productService.getProductDtoById(id));
     }
 
     @GetMapping("/categories")
@@ -43,5 +42,12 @@ public class ProductController {
         return ResponseEntity
                 .ok()
                 .body(productService.getAllCategoryList());
+    }
+
+    @GetMapping("categories/{id}")
+    public ResponseEntity<List<ProductDto>> getProductsByCategoryId(@PathVariable Long id) {
+        return ResponseEntity
+                .ok()
+                .body(productService.getAllProductsByCategoryId(id));
     }
 }

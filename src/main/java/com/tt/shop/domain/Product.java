@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@NamedQuery(name = "Product.findAllByCategoryId",
+            query = "FROM Product where CATEGORY_ID = :CATEGORY_ID")
+
 @Entity
 public class Product {
 
@@ -30,7 +33,7 @@ public class Product {
     private List<CartItem> itemsList = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "GROUP_ID")
+    @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
     public Product() {

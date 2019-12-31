@@ -2,6 +2,7 @@ package com.tt.shop.service;
 
 import com.tt.shop.domain.Product;
 import com.tt.shop.domain.dto.responseDto.CategoryDto;
+import com.tt.shop.domain.dto.responseDto.ProductDto;
 import com.tt.shop.exception.ProductNotFoundException;
 import com.tt.shop.mapper.ProductMapper;
 import com.tt.shop.repository.CategoryRepository;
@@ -41,19 +42,24 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<ProductDto> getAllProductsDto() {
+        return productMapper.mapToProductDtoList(getAllProducts());
+    }
+
     public Product getProductById(Long id) throws ProductNotFoundException {
         Optional<Product> opt = productRepository.findById(id);
         return opt.orElseThrow(() -> new ProductNotFoundException("Nie znaleziono produktu o podanym id: " + id));
+    }
+
+    public ProductDto getProductDtoById(Long id) throws ProductNotFoundException {
+        return productMapper.mapToProductDto(getProductById(id));
     }
 
     public List<CategoryDto> getAllCategoryList() {
         return productMapper.mapToCategoryDtoList(categoryRepository.findAll());
     }
 
-    public List<Product> getAllProductsByCategoryId(long categoryId) {
-        return productRepository.findAll()
-                .stream()
-                .filter(p -> p.getCategory().getId() == categoryId)
-                .collect(Collectors.toList());
+    public List<ProductDto> getAllProductsByCategoryId(long categoryId) {
+        return productMapper.mapToProductDtoList(productRepository.findAllByCategoryId(categoryId));
     }
 }
