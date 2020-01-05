@@ -2,8 +2,12 @@ package com.tt.shop.service;
 
 import com.tt.shop.domain.Cart;
 import com.tt.shop.domain.CartItem;
+import com.tt.shop.domain.dto.requestDto.AddCartItemDto;
+import com.tt.shop.domain.dto.responseDto.CartDto;
 import com.tt.shop.domain.enumvalues.CartItemStatus;
 import com.tt.shop.exception.CartNotFoundException;
+import com.tt.shop.exception.ProductNotFoundException;
+import com.tt.shop.mapper.CartMapper;
 import com.tt.shop.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +22,15 @@ public class CartService {
     private final UserService userService;
     private final ProductService productService;
     private final CartRepository cartRepository;
+    private final CartMapper cartMapper;
 
     @Autowired
-    public CartService(UserService userService, ProductService productService, CartRepository cartRepository) {
+    public CartService(UserService userService, ProductService productService, CartRepository cartRepository, CartMapper cartMapper) {
         this.userService = userService;
         this.productService = productService;
         this.cartRepository = cartRepository;
+        this.cartMapper = cartMapper;
+
     }
 
     public Cart getCartById(Long id) throws CartNotFoundException {
@@ -40,10 +47,14 @@ public class CartService {
         return cart;
     }
 
-    public void addItemToCart(CartItem cartItem) throws CartNotFoundException {
-        Cart cart = getCartById(cartItem.getCart().getId());
-        cart.getItemsInCart().add(cartItem);
+    public void addItemToCart(AddCartItemDto cartItemDto) throws CartNotFoundException, ProductNotFoundException {
+
+        Cart cart = getCartById(cartItemDto.getCart_id());
+        cart.getItemsInCart().add(cartMapper.mapToCartItem(cart, cartItemDto));
         cartRepository.save(cart);
     }
 
+    public CartDto getCartDtoWithActiveItems(Long cartId) throws CartNotFoundException {
+        return cartMapper.mapToCartDto(getCartWithActiveItems(cartId));
+    }
 }

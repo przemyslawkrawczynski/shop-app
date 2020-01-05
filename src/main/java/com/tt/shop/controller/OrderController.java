@@ -1,8 +1,6 @@
 package com.tt.shop.controller;
 
-import com.tt.shop.domain.UserOrder;
 import com.tt.shop.domain.dto.responseDto.UserOrderDto;
-import com.tt.shop.exception.CartItemNotFoundException;
 import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
 import com.tt.shop.mapper.OrderMapper;
@@ -27,18 +25,16 @@ public class OrderController {
         this.orderMapper = orderMapper;
     }
 
-    @GetMapping("/{user_id}")
-    public ResponseEntity<List<UserOrderDto>> getAllOrdersByUserId(@PathVariable("user_id") Long user_id) throws UserNotFoundException {
-        List<UserOrderDto> userOrderDtos = orderMapper.mapToUserOrderDtoList(orderService.getAllUserOrdersByUserId(user_id));
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<UserOrderDto>> getAllOrdersByUserId(@PathVariable("userId") Long userId) throws UserNotFoundException {
+        List<UserOrderDto> userOrderDtos = orderService.getAllUserOrdersByUserId(userId);
         return ResponseEntity.ok(userOrderDtos);
     }
 
-    @PostMapping("/{user_id}")
-    public ResponseEntity<UserOrderDto> createOrder(@PathVariable("user_id") Long user_id) throws UserNotFoundException, CartNotFoundException {
-        UserOrderDto orderDto = orderMapper.mapToUserOrderDto(orderService.createNewOrderForUser(user_id));
+    @PostMapping("/{userId}")
+    public ResponseEntity<UserOrderDto> createOrder(@PathVariable("userId") Long userId) throws UserNotFoundException, CartNotFoundException {
+        UserOrderDto orderDto = orderService.createNewOrderForUser(userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
     }
-
-
 
 }

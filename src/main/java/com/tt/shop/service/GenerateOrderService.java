@@ -4,8 +4,10 @@ import com.tt.shop.domain.CartItem;
 import com.tt.shop.domain.OrderItem;
 import com.tt.shop.domain.User;
 import com.tt.shop.domain.UserOrder;
+import com.tt.shop.domain.dto.responseDto.UserOrderDto;
 import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
+import com.tt.shop.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,15 +27,14 @@ public class GenerateOrderService {
         this.cartItemService = cartItemService;
     }
 
-    public UserOrder realizeOrder(Long user_id) throws UserNotFoundException, CartNotFoundException {
+    public UserOrder realizeOrder(Long userId) throws UserNotFoundException, CartNotFoundException {
 
-        User user = userService.getUserById(user_id);
+        User user = userService.getUserById(userId);
         List<CartItem> activeCartItems = cartService
                 .getCartWithActiveItems(user.getCart().getId())
                 .getItemsInCart();
 
         return generateOrder(user, activeCartItems);
-
     }
 
     public UserOrder generateOrder(User user, List<CartItem> activeCartItems) {

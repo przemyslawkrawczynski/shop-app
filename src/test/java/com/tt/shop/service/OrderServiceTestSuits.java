@@ -1,11 +1,14 @@
 package com.tt.shop.service;
 
-import com.tt.shop.domain.*;
+import com.tt.shop.domain.Cart;
+import com.tt.shop.domain.Category;
+import com.tt.shop.domain.Product;
+import com.tt.shop.domain.User;
+import com.tt.shop.domain.dto.requestDto.AddCartItemDto;
 import com.tt.shop.domain.dto.responseDto.CartDto;
-import com.tt.shop.domain.dto.responseDto.CartItemDto;
-import com.tt.shop.domain.enumvalues.CartItemStatus;
 import com.tt.shop.domain.enumvalues.Role;
 import com.tt.shop.exception.CartNotFoundException;
+import com.tt.shop.exception.ProductNotFoundException;
 import com.tt.shop.mapper.CartMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +38,7 @@ public class OrderServiceTestSuits {
     private CartMapper cartMapper;
 
     @Test
-    public void testCreateNewOrderForUser() throws CartNotFoundException {
+    public void testCreateNewOrderForUser() throws CartNotFoundException, ProductNotFoundException {
 
         //Given
         User user = new User("Johny", "Bravo", "jb@hot.com", "secretPass", true, Role.ROLE_USER);
@@ -51,12 +54,12 @@ public class OrderServiceTestSuits {
         productService.addProduct(p3);
 
         Cart userCart = user.getCart();
-        CartItem cartItem = new CartItem(userCart, p1, 1, p1.getPrice().multiply(new BigDecimal(1)), CartItemStatus.IN_CART);
-        CartItem cartItem2 = new CartItem(userCart, p1, 1, p1.getPrice().multiply(new BigDecimal(1)), CartItemStatus.IN_CART);
-        CartItem cartItem3 = new CartItem(userCart, p1, 1, p1.getPrice().multiply(new BigDecimal(1)), CartItemStatus.IN_CART);
+        AddCartItemDto cartItem = new AddCartItemDto(userCart.getId(), p1.getId(), 1);
+        AddCartItemDto cartItem1 = new AddCartItemDto(userCart.getId(), p2.getId(), 1);
+        AddCartItemDto cartItem2 = new AddCartItemDto(userCart.getId(), p3.getId(), 1);
         cartService.addItemToCart(cartItem);
+        cartService.addItemToCart(cartItem1);
         cartService.addItemToCart(cartItem2);
-        cartService.addItemToCart(cartItem3);
 
 //        user.setCart(userCart);
 //        userService.addUser(user);
