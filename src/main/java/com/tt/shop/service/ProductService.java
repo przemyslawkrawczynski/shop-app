@@ -1,5 +1,6 @@
 package com.tt.shop.service;
 
+import com.tt.shop.domain.OrderItem;
 import com.tt.shop.domain.Product;
 import com.tt.shop.domain.dto.responseDto.CategoryDto;
 import com.tt.shop.domain.dto.responseDto.ProductDto;
@@ -9,6 +10,7 @@ import com.tt.shop.repository.CategoryRepository;
 import com.tt.shop.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,14 +29,6 @@ public class ProductService {
 
     public void addProduct(Product product) {
         productRepository.save(product);
-    }
-
-    public void deleteProduct(Product product) {
-        productRepository.delete(product);
-    }
-
-    public long countAllProducts() {
-        return productRepository.count();
     }
 
     public List<Product> getAllProducts() {
@@ -61,4 +55,17 @@ public class ProductService {
     public List<ProductDto> getAllProductsByCategoryId(long categoryId) {
         return productMapper.mapToProductDtoList(productRepository.findAllByCategoryId(categoryId));
     }
+
+    public void updateStorageQuantity(List<OrderItem> orderItems) throws ProductNotFoundException {
+
+        for (OrderItem item: orderItems) {
+            updateProductStorageQuantity(item.getProduct().getId(), item.getQuantity());
+        }
+    }
+
+    private void updateProductStorageQuantity(Long productId, Integer orderSalesAmount) throws ProductNotFoundException {
+        Product productToUpdate = getProductById(productId);
+        productToUpdate.setStorageQuantity(productToUpdate.getStorageQuantity() - orderSalesAmount);
+    }
+
 }

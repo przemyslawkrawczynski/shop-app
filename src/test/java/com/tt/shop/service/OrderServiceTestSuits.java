@@ -61,9 +61,6 @@ public class OrderServiceTestSuits {
         cartService.addItemToCart(cartItem1);
         cartService.addItemToCart(cartItem2);
 
-//        user.setCart(userCart);
-//        userService.addUser(user);
-
         CartDto cartDto = cartMapper.mapToCartDto(cartService.getCartById(user.getCart().getId()));
 
         System.out.println(cartDto);

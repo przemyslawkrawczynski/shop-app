@@ -1,9 +1,10 @@
 package com.tt.shop.domain.dto.responseDto;
 
+import com.tt.shop.domain.enumvalues.OrderStatus;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 public class UserOrderDto {
@@ -14,14 +15,16 @@ public class UserOrderDto {
     private Integer numberOfItem;
     private BigDecimal orderValue;
     private String createDate;
+    private OrderStatus orderStatus;
 
-    public UserOrderDto(Long order_id, Long user_id, List<OrderItemDto> orderItemList, LocalDateTime createdDate) {
+    public UserOrderDto(Long order_id, Long user_id, List<OrderItemDto> orderItemList, LocalDateTime createdDate, OrderStatus orderStatus) {
         this.orderId = order_id;
         this.userId = user_id;
         this.orderItemList = orderItemList;
         this.numberOfItem = orderItemList.size();
         this.orderValue = getAllItemsValue(orderItemList);
         this.createDate = createdDate.format(DateTimeFormatter.ISO_DATE);
+        this.orderStatus = orderStatus;
     }
 
     public BigDecimal getAllItemsValue(List<OrderItemDto> items) {
@@ -77,5 +80,13 @@ public class UserOrderDto {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

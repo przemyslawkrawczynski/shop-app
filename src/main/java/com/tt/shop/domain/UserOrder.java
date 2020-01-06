@@ -1,6 +1,8 @@
 package com.tt.shop.domain;
 
 
+import com.tt.shop.domain.enumvalues.OrderStatus;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +21,14 @@ public class UserOrder extends CreatedDate  {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
     public UserOrder() {}
 
     public UserOrder(User user) {
         this.user = user;
-    }
-
-    public UserOrder(Long id, User user, List<OrderItem> orderItems) {
-        this.id = id;
-        this.user = user;
-        this.orderItems = orderItems;
+        this.orderStatus = OrderStatus.IN_PROCESS;
     }
 
     public Long getId() {
@@ -53,5 +53,13 @@ public class UserOrder extends CreatedDate  {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

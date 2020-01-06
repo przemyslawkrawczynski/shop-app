@@ -1,8 +1,6 @@
 package com.tt.shop.service;
 
 import com.tt.shop.domain.CartItem;
-import com.tt.shop.domain.Product;
-import com.tt.shop.domain.dto.requestDto.CartItemUpdateDto;
 import com.tt.shop.domain.enumvalues.CartItemStatus;
 import com.tt.shop.domain.enumvalues.CartItemStatusFactory;
 import com.tt.shop.exception.CartItemNotFoundException;

@@ -2,6 +2,7 @@ package com.tt.shop.controller;
 
 import com.tt.shop.domain.dto.responseDto.UserOrderDto;
 import com.tt.shop.exception.CartNotFoundException;
+import com.tt.shop.exception.ProductNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
 import com.tt.shop.mapper.OrderMapper;
 import com.tt.shop.service.OrderService;
@@ -18,12 +19,9 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
-    private final OrderMapper orderMapper;
 
-    @Autowired
-    public OrderController(OrderService orderService, OrderMapper orderMapper) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
-        this.orderMapper = orderMapper;
     }
 
     @GetMapping("/{userId}")
@@ -33,7 +31,7 @@ public class OrderController {
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<UserOrderDto> createOrder(@PathVariable("userId") Long userId) throws UserNotFoundException, CartNotFoundException {
+    public ResponseEntity<UserOrderDto> createOrder(@PathVariable("userId") Long userId) throws UserNotFoundException, CartNotFoundException, ProductNotFoundException {
         UserOrderDto orderDto = orderService.createNewOrderForUser(userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
     }

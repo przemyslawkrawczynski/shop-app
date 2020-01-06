@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findAll();
     Optional<User> findById(Long id);
+    boolean existsUserByName(String name);
+    User findByName(String name);
 }

@@ -1,7 +1,6 @@
 package com.tt.shop.controller;
 
 import com.tt.shop.domain.dto.requestDto.AddCartItemDto;
-import com.tt.shop.domain.dto.requestDto.CartItemUpdateDto;
 import com.tt.shop.domain.dto.responseDto.CartDto;
 import com.tt.shop.exception.CartItemNotFoundException;
 import com.tt.shop.exception.CartNotFoundException;

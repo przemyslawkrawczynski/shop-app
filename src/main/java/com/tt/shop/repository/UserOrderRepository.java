@@ -8,6 +8,5 @@ import java.util.List;
 public interface UserOrderRepository extends CrudRepository<UserOrder, Long> {
 
     List<UserOrder> findAll();
-
     List<UserOrder> findAllByUserId(Long id);
 }
