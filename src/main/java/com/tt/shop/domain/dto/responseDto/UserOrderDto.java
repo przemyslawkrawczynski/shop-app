@@ -1,21 +1,27 @@
 package com.tt.shop.domain.dto.responseDto;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class UserOrderDto {
 
-    private Long order_id;
-    private Long user_id;
+    private Long orderId;
+    private Long userId;
     private List<OrderItemDto> orderItemList;
+    private Integer numberOfItem;
     private BigDecimal orderValue;
+    private String createDate;
 
-    public UserOrderDto(Long order_id, Long user_id, List<OrderItemDto> orderItemList) {
-        this.order_id = order_id;
-        this.user_id = user_id;
+    public UserOrderDto(Long order_id, Long user_id, List<OrderItemDto> orderItemList, LocalDateTime createdDate) {
+        this.orderId = order_id;
+        this.userId = user_id;
         this.orderItemList = orderItemList;
+        this.numberOfItem = orderItemList.size();
         this.orderValue = getAllItemsValue(orderItemList);
+        this.createDate = createdDate.format(DateTimeFormatter.ISO_DATE);
     }
 
     public BigDecimal getAllItemsValue(List<OrderItemDto> items) {
@@ -25,20 +31,20 @@ public class UserOrderDto {
         return value;
     }
 
-    public Long getOrder_id() {
-        return order_id;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(Long order_id) {
-        this.order_id = order_id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public List<OrderItemDto> getOrderItemList() {
@@ -55,5 +61,21 @@ public class UserOrderDto {
 
     public void setOrderValue(BigDecimal orderValue) {
         this.orderValue = orderValue;
+    }
+
+    public Integer getNumberOfItem() {
+        return numberOfItem;
+    }
+
+    public void setNumberOfItem(Integer numberOfItem) {
+        this.numberOfItem = numberOfItem;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 }

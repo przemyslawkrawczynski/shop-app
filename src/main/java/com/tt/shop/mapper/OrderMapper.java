@@ -21,7 +21,8 @@ public class OrderMapper {
     public UserOrderDto mapToUserOrderDto(UserOrder userOrder) {
         return new UserOrderDto(userOrder.getId(),
                 userOrder.getUser().getId(),
-                mapToOrderItemDtoList(userOrder.getOrderItems()));
+                mapToOrderItemDtoList(userOrder.getOrderItems()),
+                userOrder.getCreatedDate());
     }
 
     public List<OrderItemDto> mapToOrderItemDtoList(List<OrderItem> orderItems) {

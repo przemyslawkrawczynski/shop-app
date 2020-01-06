@@ -1,7 +1,5 @@
 package com.tt.shop.domain.dto.responseDto;
 
-import com.tt.shop.domain.Product;
-
 import java.math.BigDecimal;
 
 public class ProductDto {

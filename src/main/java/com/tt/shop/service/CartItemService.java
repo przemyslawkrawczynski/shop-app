@@ -1,16 +1,16 @@
 package com.tt.shop.service;
 
 import com.tt.shop.domain.CartItem;
+import com.tt.shop.domain.Product;
+import com.tt.shop.domain.dto.requestDto.CartItemUpdateDto;
 import com.tt.shop.domain.enumvalues.CartItemStatus;
 import com.tt.shop.domain.enumvalues.CartItemStatusFactory;
 import com.tt.shop.exception.CartItemNotFoundException;
-import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.repository.CartItemRepository;
-import com.tt.shop.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +18,6 @@ import java.util.Optional;
 public class CartItemService {
 
     private final CartItemRepository cartItemRepository;
-
 
     @Autowired
     public CartItemService(CartItemRepository cartItemRepository) {
@@ -34,7 +33,14 @@ public class CartItemService {
     public void removeCartItemById(Long id) throws CartItemNotFoundException {
         CartItem cartItem = getCartItemById(id);
         cartItem.setCartItemStatus(CartItemStatus.DELETED_BY_USER);
-        System.out.println(cartItem.getCartItemStatus());
+        cartItemRepository.save(cartItem);
+    }
+
+    public void update(Long id, Integer quantity) throws CartItemNotFoundException {
+        CartItem cartItem = getCartItemById(id);
+        BigDecimal newItemValue = cartItem.getProduct().getPrice().multiply(new BigDecimal(quantity));
+        cartItem.setQuantity(quantity);
+        cartItem.setItemValue(newItemValue);
         cartItemRepository.save(cartItem);
     }
 

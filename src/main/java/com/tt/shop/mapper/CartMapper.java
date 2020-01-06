@@ -35,10 +35,14 @@ public class CartMapper {
                 .map(this::mapToCartItemDto)
                 .collect(Collectors.toList());
 
+        BigDecimal cartValue = cartItemDtos.stream()
+                .map(CartItemDto::getItemValue)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
         return new CartDto(
                 cart.getId(),
                 cart.getUser().getId(),
-                cartItemDtos);
+                cartItemDtos, cartValue);
     }
 
     public CartItemDto mapToCartItemDto(CartItem cartItem) {

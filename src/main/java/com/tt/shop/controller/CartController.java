@@ -1,6 +1,7 @@
 package com.tt.shop.controller;
 
 import com.tt.shop.domain.dto.requestDto.AddCartItemDto;
+import com.tt.shop.domain.dto.requestDto.CartItemUpdateDto;
 import com.tt.shop.domain.dto.responseDto.CartDto;
 import com.tt.shop.exception.CartItemNotFoundException;
 import com.tt.shop.exception.CartNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/shop/carts")
+@CrossOrigin(origins = "*")
 public class CartController {
 
     private final CartService cartService;
@@ -31,8 +33,15 @@ public class CartController {
 
     @GetMapping("/{cartId}")
     public ResponseEntity<CartDto> getCartWithActiveItemsById(@PathVariable Long cartId) throws CartNotFoundException {
+
         CartDto cartDto = cartService.getCartDtoWithActiveItems(cartId);
         return ResponseEntity.ok().body(cartDto);
+    }
+
+    @PutMapping("/{itemId}/{quantity}")
+    public ResponseEntity updateItemInCart(@PathVariable("itemId") Long itemId, @PathVariable("quantity") int quantity) throws CartItemNotFoundException {
+        cartItemService.update(itemId, quantity);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{itemId}")

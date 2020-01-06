@@ -1,5 +1,6 @@
 package com.tt.shop.domain.dto.responseDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CartDto {
@@ -7,13 +8,15 @@ public class CartDto {
     private Long cart_id;
     private Long user_id;
     private List<CartItemDto> cartItemDtos;
+    private BigDecimal cartValue;
 
     public CartDto() {}
 
-    public CartDto(Long cart_id, Long user_id, List<CartItemDto> cartItemDtos) {
+    public CartDto(Long cart_id, Long user_id, List<CartItemDto> cartItemDtos, BigDecimal cartValue) {
         this.cart_id = cart_id;
         this.user_id = user_id;
         this.cartItemDtos = cartItemDtos;
+        this.cartValue = cartValue;
     }
 
     public Long getCart_id() {
@@ -38,6 +41,14 @@ public class CartDto {
 
     public void setCartItemDtos(List<CartItemDto> cartItemDtos) {
         this.cartItemDtos = cartItemDtos;
+    }
+
+    public BigDecimal getCartValue() {
+        return cartValue;
+    }
+
+    public void setCartValue(BigDecimal cartValue) {
+        this.cartValue = cartValue;
     }
 
     @Override

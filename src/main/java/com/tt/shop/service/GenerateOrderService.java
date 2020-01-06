@@ -4,10 +4,8 @@ import com.tt.shop.domain.CartItem;
 import com.tt.shop.domain.OrderItem;
 import com.tt.shop.domain.User;
 import com.tt.shop.domain.UserOrder;
-import com.tt.shop.domain.dto.responseDto.UserOrderDto;
 import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
-import com.tt.shop.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
