@@ -3,9 +3,11 @@ package com.tt.shop.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -24,6 +26,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     JwtTokenFilterConfigurer jwtTokenFilterConfigurer;
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         // Disable CSRF (cross site request forgery)
@@ -34,8 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // Entry points
         http.authorizeRequests()//
-                .antMatchers("/users/signin").permitAll()//
-                .antMatchers("/users/signup").permitAll()//
+                .antMatchers("/app/shop/signin").permitAll()//
                 .antMatchers("/h2-console/**/**").permitAll()
                 .antMatchers("/api/shop/products/**/**").permitAll()
                 .antMatchers("/api/shop/carts/**/**").hasAnyAuthority("ADMIN", "USER")
@@ -45,9 +51,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .apply(jwtTokenFilterConfigurer);
-
-        // If a user try to access a resource without having enough permissions
-        http.exceptionHandling().accessDeniedPage("/users/signin");
 
     }
 

@@ -6,6 +6,7 @@ import com.tt.shop.domain.User;
 import com.tt.shop.domain.enumvalues.Role;
 import com.tt.shop.repository.*;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -19,13 +20,15 @@ public class OnStartClassMain implements CommandLineRunner {
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final PasswordEncoder encoder;
 
-    public OnStartClassMain(ProductRepository productRepository, CategoryRepository categoryRepository, UserRepository userRepository, CartRepository cartRepository, CartItemRepository cartItemRepository) {
+    public OnStartClassMain(ProductRepository productRepository, CategoryRepository categoryRepository, UserRepository userRepository, CartRepository cartRepository, CartItemRepository cartItemRepository, PasswordEncoder encoder) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
+        this.encoder = encoder;
     }
 
     private final String DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
@@ -82,8 +85,8 @@ public class OnStartClassMain implements CommandLineRunner {
         }
 
 
-        User user = new User("Johny", "Bravo", "user@user.com", "secretPass", true, Role.ROLE_USER);
-        User user2 = new User("Mickey", "Mouse", "admin@admin.com", "secretPass", true, Role.ROLE_ADMIN);
+        User user = new User("Johny", "Bravo", "jbravo", encoder.encode("password"), true, Role.USER);
+        User user2 = new User("Mickey", "Mouse", "msmith", encoder.encode("password"), true, Role.ADMIN);
 
         if (userRepository.count() == 0) {
             userRepository.save(user);

@@ -17,9 +17,9 @@ public class User extends CreatedDate{
     @Column
     private String lastName;
     @Column
-    private String mail;
+    private String username;
     @Column
-    private String pass;
+    private String password;
 
     @OneToOne(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
@@ -37,11 +37,11 @@ public class User extends CreatedDate{
 
     public User() {};
 
-    public User(String name, String lastName, String mail, String pass, boolean isActive, Role role) {
+    public User(String name, String lastName, String username, String password, boolean isActive, Role role) {
         this.name = name;
         this.lastName = lastName;
-        this.mail = mail;
-        this.pass = pass;
+        this.username = username;
+        this.password = password;
         this.isActive = isActive;
         this.role = role;
     }
@@ -70,20 +70,20 @@ public class User extends CreatedDate{
         this.lastName = lastName;
     }
 
-    public String getMail() {
-        return mail;
+    public String getUsername() {
+        return username;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Cart getCart() {

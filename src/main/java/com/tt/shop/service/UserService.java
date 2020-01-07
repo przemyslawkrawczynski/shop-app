@@ -1,5 +1,6 @@
 package com.tt.shop.service;
 
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import com.tt.shop.domain.Cart;
 import com.tt.shop.domain.User;
 import com.tt.shop.exception.UserNotFoundException;
@@ -29,6 +30,10 @@ public class UserService {
     public User getUserById(Long id) throws UserNotFoundException {
         Optional<User> opt = userRepository.findById(id);
         return opt.orElseThrow(() -> new UserNotFoundException("Nie odnaleziono użytkownika o ID: " + id));
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public Cart getUserCartByUserId(Long id) throws UserNotFoundException {
