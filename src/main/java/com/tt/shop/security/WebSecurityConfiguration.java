@@ -33,10 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // Disable CSRF (cross site request forgery)
         http.csrf().disable();
-
-        // No session will be created or used by spring security
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Entry points
@@ -47,13 +44,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/shop/carts/**/**").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/api/shop/orders/**/**").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/api/shop/management/**/**").hasAnyAuthority("ADMIN")
-                // Disallow everything else..
                 .anyRequest().authenticated()
                 .and()
                 .apply(jwtTokenFilterConfigurer);
 
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

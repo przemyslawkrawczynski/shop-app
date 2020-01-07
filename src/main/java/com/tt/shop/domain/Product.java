@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @NamedQuery(name = "Product.findAllByCategoryId",
             query = "FROM Product where CATEGORY_ID = :CATEGORY_ID")
@@ -45,24 +44,6 @@ public class Product extends CreatedDate{
         this.storageQuantity = storageQuantity;
         this.price = price;
         this.category = category;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-        Product product = (Product) o;
-        return id == product.id &&
-                storageQuantity == product.storageQuantity &&
-                Objects.equals(name, product.name) &&
-                Objects.equals(description, product.description) &&
-                Objects.equals(price, product.price) &&
-                Objects.equals(category, product.category);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, storageQuantity, price, category);
     }
 
     public Long getId() {
@@ -120,4 +101,6 @@ public class Product extends CreatedDate{
     public void setCategory(Category category) {
         this.category = category;
     }
+
+
 }

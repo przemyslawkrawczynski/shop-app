@@ -9,7 +9,6 @@ import com.tt.shop.exception.ProductNotFoundException;
 import com.tt.shop.exception.UserNotFoundException;
 import com.tt.shop.mapper.OrderMapper;
 import com.tt.shop.repository.UserOrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class OrderService {
     private final GenerateOrderService generateOrderService;
     private final OrderMapper orderMapper;
 
-    @Autowired
     public OrderService(UserService userService, UserOrderRepository userOrderRepository, GenerateOrderService generateOrderService, OrderMapper orderMapper) {
         this.userService = userService;
         this.userOrderRepository = userOrderRepository;

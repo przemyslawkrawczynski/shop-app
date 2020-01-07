@@ -10,7 +10,6 @@ import com.tt.shop.repository.CategoryRepository;
 import com.tt.shop.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,9 +26,6 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    public void addProduct(Product product) {
-        productRepository.save(product);
-    }
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();

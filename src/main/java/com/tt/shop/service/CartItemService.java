@@ -2,10 +2,8 @@ package com.tt.shop.service;
 
 import com.tt.shop.domain.CartItem;
 import com.tt.shop.domain.enumvalues.CartItemStatus;
-import com.tt.shop.domain.enumvalues.CartItemStatusFactory;
 import com.tt.shop.exception.CartItemNotFoundException;
 import com.tt.shop.repository.CartItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,7 +15,6 @@ public class CartItemService {
 
     private final CartItemRepository cartItemRepository;
 
-    @Autowired
     public CartItemService(CartItemRepository cartItemRepository) {
         this.cartItemRepository = cartItemRepository;
     }
@@ -46,10 +43,6 @@ public class CartItemService {
         cartItems.stream()
                 .forEach(item -> item.setCartItemStatus(CartItemStatus.ORDERED));
         cartItemRepository.saveAll(cartItems);
-    }
-
-    public List<CartItem> getAllActiveCartItemsInCart(Long cartId) throws CartItemNotFoundException {
-        return cartItemRepository.findAllByCart_IdAndCartItemStatus(cartId, CartItemStatusFactory.getCartItemStatus(1));
     }
 
 

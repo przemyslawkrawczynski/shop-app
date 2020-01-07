@@ -3,7 +3,6 @@ package com.tt.shop.service;
 import com.tt.shop.domain.Category;
 import com.tt.shop.exception.CategoryNotFoundException;
 import com.tt.shop.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +13,6 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }

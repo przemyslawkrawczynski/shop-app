@@ -3,7 +3,6 @@ package com.tt.shop.security;
 import com.tt.shop.domain.User;
 import com.tt.shop.domain.enumvalues.Role;
 import com.tt.shop.repository.UserRepository;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

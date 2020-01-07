@@ -46,6 +46,27 @@ public class User extends CreatedDate{
         this.role = role;
     }
 
+    public User(Long id, String name, String lastName, String username, String password, boolean isActive, Role role) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.isActive = isActive;
+        this.role = role;
+    }
+
+    public User(String name, String lastName, String username, String password, Cart cart, List<UserOrder> orders, boolean isActive, Role role) {
+        this.name = name;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.cart = cart;
+        this.orders = orders;
+        this.isActive = isActive;
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
@@ -117,4 +138,6 @@ public class User extends CreatedDate{
     public void setRole(Role role) {
         this.role = role;
     }
+
+
 }

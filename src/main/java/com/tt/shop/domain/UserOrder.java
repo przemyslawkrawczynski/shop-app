@@ -7,6 +7,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(
+        name = "UserOrder.searchByProductId",
+        query = "FROM UserOrder"
+)
+
 @Entity
 public class UserOrder extends CreatedDate  {
 
@@ -62,4 +67,5 @@ public class UserOrder extends CreatedDate  {
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
+
 }

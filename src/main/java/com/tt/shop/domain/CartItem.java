@@ -96,4 +96,5 @@ public class CartItem {
     public void setCartItemStatus(CartItemStatus cartItemStatus) {
         this.cartItemStatus = cartItemStatus;
     }
+
 }

@@ -9,7 +9,6 @@ import com.tt.shop.exception.CartNotFoundException;
 import com.tt.shop.exception.ProductNotFoundException;
 import com.tt.shop.mapper.CartMapper;
 import com.tt.shop.repository.CartRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +23,6 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartMapper cartMapper;
 
-    @Autowired
     public CartService(UserService userService, ProductService productService, CartRepository cartRepository, CartMapper cartMapper) {
         this.userService = userService;
         this.productService = productService;
